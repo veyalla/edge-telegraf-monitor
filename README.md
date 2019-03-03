@@ -1,8 +1,8 @@
 # edge-telegraf-monitor
-Visualize and monitor IoT Edge module stats in Azure Monitor using telegraf.
+Visualize and monitor IoT Edge module docker metrics in Azure Monitor using telegraf.
 
-# What it does...
-Uses [telegraf](https://www.influxdata.com/time-series-platform/telegraf/) agent to send Docker stats from an IoT Edge device to Azure Monitor. As an IoT Edge module, it can to be remotely deployed to devices at scale allowing module CPU, memory and network to be monitored centrally in Azure monitor or Grafana (via [Azure Monitor integration](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/grafana-plugin?toc=%2Fazure%2Fazure-monitor%2Ftoc.json)).
+# What it does
+Uses [telegraf](https://www.influxdata.com/time-series-platform/telegraf/) agent to send Docker stats from an IoT Edge device to Azure Monitor. As an IoT Edge module, it can to be remotely deployed to devices at scale allowing module CPU, memory and network usage to be monitored centrally in Azure monitor or Grafana (via [Azure Monitor integration](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/grafana-plugin?toc=%2Fazure%2Fazure-monitor%2Ftoc.json)).
 
 # Supported platforms 
 Linux amd64 and armhf
@@ -36,7 +36,7 @@ On the device side, https (port 443) outbound access is needed to the [regional]
 
 2. Add the telegraf module with the container image built using Dockerfile in this repo.
 
-    Container images from my public Dockerhub repo - `veyalla/telegraf-edge:amd64` and `veyalla/telegraf-edge:armhf` can be used for testing on Linux AMD64 and Linux ARM32 respectively.
+    Container images from my public repo - `veyalla/telegraf-edge:amd64` and `veyalla/telegraf-edge:armhf` can be used for testing on Linux AMD64 and Linux ARM32 respectively.
 
     Set the following *createOptions* and environment variable for the modules in the deployment:
 
@@ -83,14 +83,14 @@ On the device side, https (port 443) outbound access is needed to the [regional]
     | Environment variable | Description |
     | - | --- |
     | AZURE_TENANT_ID, AZURE_CLIENT_ID, AZURE_CLIENT_SECRET | Credentials from Step 1. |
-    | resource_id | IoT Hub resouce ID. Available in the properties page of the IoT Hub in the Portal. Usually of the form `/subscriptions/xxx/resourceGroups/default/providers/Microsoft.Devices/IotHubs/<hub-name>.`
+    | resource_id | IoT Hub resouce ID. Available in the properties page of the IoT Hub in the Portal. Usually of the form `/subscriptions/xxx/resourceGroups/xxx/providers/Microsoft.Devices/IotHubs/<hub-name>.`
     |region | IoT Hub Azure region. Ensure Azure Monitor custom metrics are [supported in region](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/metrics-custom-overview#supported-regions). E.g. westeurope. | 
     | input_fieldpass | Metric fields to include from the [docker input plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/docker/README.md). |
-    | input_taginclude | Metric tags to include from the [docker input plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/docker/README.md). This will show up as *dimensions* is Azure Monitor. |
+    | input_taginclude | Metric tags to include from the [docker input plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/docker/README.md). This will show up as *dimensions* in Azure Monitor. |
     | interval | Metric publishing [interval](https://github.com/influxdata/telegraf/blob/master/docs/CONFIGURATION.md#intervals). E.g. 30s, 10m, 5h. |
 
 # Viewing metrics
-Telegraf *docker* metrics published from Edge devices will appear in the metrics section of the IoT Hub blade in the Azure portal. Once device metrics are pushed to the cloud, you can select the metric of interest from the *Metric Namespace* dropdown. To see metrics across all devices, apply a split along *engine_host*. Similarly, to see metrics across all modules, apply a split along *container_name*. You can add filters to narrow down to a module or device of interest. Here are example screenshots:
+Telegraf *docker* metrics published from Edge devices will appear in the metrics section of the IoT Hub blade in the Azure portal. Once device metrics are pushed to the cloud, you can select Edge metrics from the *Metric Namespace* dropdown. To see metrics across all devices, apply a split along *engine_host*. Similarly, to see metrics across all modules, apply a split along *container_name*. You can add filters to narrow down to a module or device of interest. Here are example screenshots:
 
 ![](media/em2.png)
 ![](media/em1.png)
