@@ -92,3 +92,5 @@ On the device side, https (port 443) outbound access is needed to the [regional]
 # Viewing metrics
 Telegraf *docker* metrics published from Edge devices will appear in the metrics section of the IoT Hub blade in the Azure portal. Once device metrics are pushed to the cloud, you can select the metric of interest from the *Metric Namespace* dropdown. To see metrics across all devices, apply a split along *engine_host*. Similarly, to see metrics across all modules, apply a split along *container_name*. You can add filters to narrow down to a module or device of interest. Here are example screenshots:
 
+![](media/em2.png)
+![](media/em1.png)
