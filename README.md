@@ -51,7 +51,8 @@ On the device side, https (port 443) outbound access is needed to the [regional]
             ]
         }
     }
-    env": {
+    ...
+    "env": {
         "AZURE_TENANT_ID": {
             "value": "replace-with-tenant-id-from-step1"
         },
