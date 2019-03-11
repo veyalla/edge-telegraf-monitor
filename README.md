@@ -45,7 +45,7 @@ On the device side, https (port 443) outbound access is needed to the [regional]
     ```
     {
         "HostConfig": {
-            "Memory: 33554432,
+            "Memory": 33554432,
             "Binds": [
             "/var/run/docker.sock:/var/run/docker.sock"
             ]
